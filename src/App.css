@@ -1,38 +1,324 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --color-one: #E3CCAE;
+    --color-two: #B8621B;
+    --color-three: #262A56;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+    background-image: url(media/bg.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+
+    position: relative;
+    margin-bottom: 120px;
+    user-select: none;
+}
+main {
+    margin: 0 auto;
+    padding: 5px;
+    width: 95vw;
+    max-width: 1200px;
+
+    background: rgba(255, 255, 255, 0.36);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(13.1px);
+    -webkit-backdrop-filter: blur(13.1px);
+}
+h1 {
+    text-align: center;
+}
+.tours {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+.tours .item {
+    position: relative;
+    width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    user-select: text;
+}
+.tours .item .name {
+    text-align: center;
+    margin: 0;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 18px;
+}
+.tours .item .id {
+    opacity: 0;
+    color: var(--color-two);
+    position: absolute;
+    right: 10px;
+    top: -15px;
+    transition: .3125s;
+}
+.tours .item .id.too-big {
+    top: 5px;
+}
+.tours .item:hover .id {
+    opacity: 1;
+}
+.tours .item .description {
+    text-align: center;
+}
+.tours .item .description ul, .tours .item .description li {
+    text-align: left;
+}
+.tours .item .info {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--color-one);
+    color: var(--color-two);
+    padding: 5px;
+    border-radius: 7.5px;
+}
+.tours .item .days-and-time {
+    display: flex;
+    justify-content: space-around;
+}
+.days-and-time .days, .days-and-time .time {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+.days-and-time .days img, .days-and-time .time img {
+    height: 30px;
+    user-select: none;
+}
+.days-and-time .days span {
+    font-size: 11px;
+}
+.tours .item .pricetag {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.tours .item .pricetag button {
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
+    font-size: 20px;
+    background-color: var(--color-two);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 15px;
+    width: 50%;
+    user-select: none;
+}
+.tours .item .pricetag button:hover {
+    background-color: var(--color-three);
+    font-style: italic;
+    transition: 0.625s;
+}
+.tours .item .pricetag p {
+    font-weight: bold;
+    font-size: 18px;
+    margin: auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.cart-shortcut {
+    width: 40vw;
+    min-width: 400px;
+    max-width: 1000px;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    padding: 10px 15px;
+
+    background: rgba(255, 255, 255, 0.36);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 1);
+    backdrop-filter: blur(13.1px);
+    -webkit-backdrop-filter: blur(13.1px);
+    transition: .625s;
+}
+.cart-shortcut.closed {
+    filter: blur(40px);
+    opacity: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    background: rgba(255, 255, 255, 0.36);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(13.1px);
+    -webkit-backdrop-filter: blur(13.1px);
+    transition: .625s;
+}
+.overlay.closed {
+    scale: 0;
+    padding: 0;
+    opacity: 0;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    filter: blur(40px);
+}
+.overlay .window {
+    background-color: white;
+    width: 80vw;
+    height: 80vh;
+    border-radius: 25px;
+    padding: 15px;
+
+    overflow-y: scroll;
+}
+.overlay.closed .window {
+    display: none;
+}
+.window .top-bar {
+    display: flex;
+    gap: 20px;
+}
+.window .top-bar button {
+    background: none;
+    border: none;
+}
+.window .top-bar button img {
+    height: 30px;
+}
+.window .top-bar h3 {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--color-two)
 }
 
-.App-link {
-  color: #61dafb;
+.people-counter {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.people-counter h4 {
+    font-size: 40px;
+    font-style: italic;
+    margin: 0;
+}
+.people-counter p {
+    font-size: 40px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.people-counter p button {
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    font-family: "Montserrat", sans-serif;
+    font-style: italic;
+    background-color: var(--color-one);
+    border: 1px solid var(--color-two);
+    color: var(--color-two);
+    border-radius: 20px;
+    transition: .3125s;
+}
+.people-counter p button.unavailable {
+    opacity: 0.5;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.window .interaction-window {
+    display: flex;
+    flex-direction: column;
+}
+.cart {
+    margin-top: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.cart .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    padding: 10px;
+    border-radius: 10px;
+
+    box-shadow:  0px 0px 40px rgba(0, 0, 0, 0.25)
+}
+.cart .item .id {
+    position: absolute;
+    font-size: 90px;
+    margin: 0;
+    opacity: 0.25;
+    color: var(--color-two)
+}
+.cart .item .name {
+    font-style: italic;
+    font-size: 40px;
+    position: relative;
+    left: 60px;
+}
+.cart .item .price {
+    margin-left: auto;
+    font-weight: bold;
+    font-size: 20px;
+}
+.cart .item .remove {
+    border: none;
+    background: none;
+    opacity: 0;
+    filter: blur(40px);
+    transition: 0.3125s;
+}
+.cart .item:hover .remove {
+    opacity: 1;
+    filter: blur(0);
+}
+.cart .item .remove img {
+    height: 60px;
+}
+.cart .no-item {
+    align-self: center;
+}
+.cart .no-item h3 {
+    color: var(--color-two);
+    font-style: italic;
+    opacity: 0.5;
+    font-weight: normal;
+}
+.cart .total {
+    align-self: flex-end;
+    font-size: 30px;
+    margin: 0;
+    font-style: italic;
+    font-weight: normal;
+}
+.cart .total span {
+    color: var(--color-two);
+    font-weight: bold;
 }

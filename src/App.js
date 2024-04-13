@@ -1,25 +1,19 @@
-import logo from './logo.svg';
+import Tours from "./tours-list/tours";
 import './App.css';
+import CartShortcut from "./cart/cart-shortcut";
+import { useSelector } from 'react-redux';
+import { getCartOpening } from "./store/cart-slice";
+import Cart from "./cart/cart";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+    const cartOpening = useSelector(getCartOpening);
+
+    return <>
+        <main>
+            <h1>Туры по Стамбулу</h1>
+            <Tours/>
+        </main>
+        <CartShortcut/>
+        <Cart/>
+    </>
 }
-
-export default App;
